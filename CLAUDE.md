@@ -5,7 +5,6 @@ This is a Claude Code plugin that provides an opinionated stack and architecture
 ## Plugin Structure
 
 - `.claude/commands/` - Slash commands available as `/project:<command>` in Claude Code
-- `docs/` - Reference documentation for architecture decisions and patterns
 
 ## Layered Architecture
 
