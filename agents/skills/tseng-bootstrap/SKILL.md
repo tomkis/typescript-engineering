@@ -1,16 +1,68 @@
 ---
 name: tseng-bootstrap
 description: >
-  Validate that a TypeScript project follows the opinionated monorepo architecture stack.
-  Use when the user asks to check, validate, audit, or verify their project structure,
-  architecture compliance, monorepo setup, or stack adherence. Triggers on phrases like
-  "check my architecture", "validate project structure", "is my project set up correctly",
-  "audit my monorepo", or "does this follow the stack".
+  Bootstrap a new TypeScript project or validate an existing one against the opinionated
+  monorepo architecture stack. Use when the user asks to bootstrap, scaffold, initialize,
+  check, validate, audit, or verify their project structure, architecture compliance,
+  monorepo setup, or stack adherence. Triggers on phrases like "bootstrap my project",
+  "scaffold a new project", "check my architecture", "validate project structure",
+  "is my project set up correctly", "audit my monorepo", or "does this follow the stack".
+  Also invocable via the /project:tseng-bootstrap slash command.
 ---
 
 # TSEng Bootstrap
 
-Validates that a TypeScript project adheres to the opinionated monorepo architecture stack defined in the TypeScript Engineering Plugin.
+Bootstraps a new TypeScript project or validates an existing one against the opinionated monorepo architecture stack defined in the TypeScript Engineering Plugin.
+
+This skill operates in two modes:
+
+1. **Bootstrap mode** — when the project is empty or has no monorepo structure, scaffold the full stack from scratch.
+2. **Validate mode** — when the project already has structure, check compliance and report issues.
+
+## Mode Detection
+
+First, determine which mode to use:
+
+- If the project root has **no `package.json`**, or has a `package.json` but **no workspaces config and no `src/` directory**, treat it as an empty project → **Bootstrap mode**.
+- Otherwise → **Validate mode**.
+
+---
+
+## Bootstrap Mode (Empty Project)
+
+When bootstrapping, create the full opinionated monorepo structure. Ask the user for a project name (or infer from the directory name), then scaffold:
+
+1. **Root setup**
+   - Initialize `package.json` with `workspaces` field (or `pnpm-workspace.yaml` if using pnpm)
+   - Add a `tsconfig.base.json` with strict TypeScript settings and project references
+   - Detect or ask for the package manager (default to pnpm)
+
+2. **Server package** (`packages/server/`)
+   - `package.json` with `@trpc/server`, `zod` as dependencies
+   - `src/` directory with the three-layer structure:
+     - `src/routers/` — tRPC router with a sample health-check procedure using Zod input validation
+     - `src/services/` — sample business service
+     - `src/domain/` — sample domain entity with a Result type
+   - `tsconfig.json` extending the base
+
+3. **Client package** (`packages/client/`)
+   - `package.json` with `@trpc/client` (and optionally `react`, `@trpc/react-query`)
+   - `src/` directory with a sample tRPC client setup
+   - `tsconfig.json` extending the base
+
+4. **Shared package** (`packages/shared/`)
+   - `package.json` for shared types
+   - `src/index.ts` exporting the `AppRouter` type from the server
+
+5. **Persist** the project layout into `tseng/project-structure.md` (see below).
+
+6. **Report** what was created and suggest next steps (install deps, run dev server).
+
+After scaffolding, run the validation checks (below) to confirm everything passes.
+
+---
+
+## Validate Mode (Existing Project)
 
 ## What This Skill Checks
 
