@@ -4,7 +4,7 @@ This is a Claude Code plugin that provides an opinionated stack and architecture
 
 ## Plugin Structure
 
-- `.claude/commands/` - Slash commands available as `/project:<command>` in Claude Code
+- `.claude/skills/` - Skills available in Claude Code (e.g., `tseng-architecture` for architecture validation)
 
 ## Layered Architecture
 

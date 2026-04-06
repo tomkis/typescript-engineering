@@ -1,5 +1,5 @@
 ---
-name: monorepo-architecture-validator
+name: tseng-architecture
 description: >
   Validate that a TypeScript project follows the opinionated monorepo architecture stack.
   Use when the user asks to check, validate, audit, or verify their project structure,
@@ -8,7 +8,7 @@ description: >
   "audit my monorepo", or "does this follow the stack".
 ---
 
-# Monorepo Architecture Validator
+# TSEng Architecture Validator
 
 Validates that a TypeScript project adheres to the opinionated monorepo architecture stack defined in the TypeScript Engineering Plugin.
 
