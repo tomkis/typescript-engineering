@@ -1,0 +1,138 @@
+---
+name: monorepo-architecture-validator
+description: >
+  Validate that a TypeScript project follows the opinionated monorepo architecture stack.
+  Use when the user asks to check, validate, audit, or verify their project structure,
+  architecture compliance, monorepo setup, or stack adherence. Triggers on phrases like
+  "check my architecture", "validate project structure", "is my project set up correctly",
+  "audit my monorepo", or "does this follow the stack".
+---
+
+# Monorepo Architecture Validator
+
+Validates that a TypeScript project adheres to the opinionated monorepo architecture stack defined in the TypeScript Engineering Plugin.
+
+## What This Skill Checks
+
+Run a series of checks against the target project and produce a structured report. Each check results in one of three statuses:
+
+- **PASS** — requirement is met
+- **FAIL** — requirement is not met (include what's wrong and how to fix it)
+- **WARN** — partially met or ambiguous (include what to look at)
+
+---
+
+## Validation Checks
+
+Execute the checks below **in order**. For each check, use the tools available (Glob, Grep, Read, Bash) to inspect the project. Do NOT guess — always verify by reading actual files.
+
+### 1. Monorepo Structure
+
+**Goal:** Confirm the project is organized as a monorepo with distinct packages/workspaces.
+
+- Look for a root `package.json` with a `workspaces` field, OR a `pnpm-workspace.yaml`, OR a `lerna.json`.
+- Verify there are at least two workspace packages (typically under `packages/`, `apps/`, or similar).
+- Check that each workspace package has its own `package.json`.
+
+**FAIL** if: No workspace configuration is found at the root, or fewer than two packages exist.
+
+### 2. Server Package Exists
+
+**Goal:** Confirm there is a server/API package in the monorepo.
+
+- Look for a workspace package whose name or directory suggests it is a server (e.g., `server`, `api`, `backend`, or a package whose `package.json` has server-related dependencies like `express`, `fastify`, `hono`, `@trpc/server`).
+- Verify the package has a `package.json` and a `src/` or `source/` directory.
+
+**FAIL** if: No server package can be identified.
+
+### 3. Client Package Exists
+
+**Goal:** Confirm there is a client/frontend package in the monorepo.
+
+- Look for a workspace package whose name or directory suggests it is a client (e.g., `client`, `web`, `app`, `frontend`, or a package that depends on `react`, `vue`, `svelte`, `next`, `@trpc/client`, `@tanstack/react-query`).
+- Verify the package has a `package.json` and a `src/` or `source/` directory.
+
+**FAIL** if: No client package can be identified.
+
+### 4. tRPC Is Installed
+
+**Goal:** Confirm tRPC is part of the stack for the validation layer.
+
+- Check the **server** package's `package.json` for `@trpc/server` in `dependencies` or `devDependencies`.
+- Check the **client** package's `package.json` for `@trpc/client` in `dependencies` or `devDependencies`.
+- Optionally check for a shared package that exports the tRPC router type (for end-to-end type safety).
+
+**FAIL** if: `@trpc/server` is missing from the server package.
+**WARN** if: `@trpc/client` is missing from the client package (they may use a different integration like `@trpc/react-query` or `@trpc/next`).
+
+### 5. Layered Architecture (Server)
+
+**Goal:** Verify the server package follows the three-layer DDD-inspired architecture.
+
+- **Validation Layer**: Look for a directory or files related to tRPC routers (e.g., `routers/`, `routes/`, `trpc/`, or files importing from `@trpc/server`). Verify routers exist and contain Zod input validation.
+- **Application Layer**: Look for a `services/` directory or similar containing business service files. Verify services are separate from routers.
+- **Domain Layer**: Look for a `domain/`, `models/`, or `entities/` directory containing pure domain logic. Check that domain files do NOT import from external packages (no `@trpc`, no `express`, no database drivers, etc.).
+
+**FAIL** if: No clear separation of layers is found (e.g., business logic lives directly in router handlers).
+**WARN** if: Layers exist but naming conventions differ from the expected pattern.
+
+### 6. Zod Validation in tRPC Routers
+
+**Goal:** Confirm that tRPC routers use Zod schemas for input validation.
+
+- Check that `zod` is a dependency in the server package.
+- Grep router files for `.input(z.` patterns indicating Zod schema validation on procedures.
+
+**FAIL** if: `zod` is not installed.
+**WARN** if: Zod is installed but no `.input(` usage is found in router files.
+
+### 7. Shared Types / Contracts Package (Optional)
+
+**Goal:** Check if there's a shared package for types, contracts, or tRPC router exports.
+
+- Look for a workspace package named `shared`, `common`, `contracts`, `types`, or similar.
+- Check if it exports tRPC `AppRouter` type for end-to-end type safety.
+
+**WARN** if: No shared types package exists (recommend creating one for type-safe client-server contracts).
+
+---
+
+## Output Format
+
+After running all checks, present the results as a summary table followed by details:
+
+```
+## Architecture Validation Report
+
+| # | Check                          | Status |
+|---|--------------------------------|--------|
+| 1 | Monorepo Structure             | PASS   |
+| 2 | Server Package                 | PASS   |
+| 3 | Client Package                 | PASS   |
+| 4 | tRPC Installed                 | FAIL   |
+| 5 | Layered Architecture (Server)  | WARN   |
+| 6 | Zod Validation in Routers      | FAIL   |
+| 7 | Shared Types Package           | WARN   |
+
+### Details
+
+(For each non-PASS check, explain what was found, what's missing, and concrete steps to fix it.)
+```
+
+### Scoring
+
+At the end of the report, provide an overall compliance score:
+
+- **7/7 PASS** = Fully compliant
+- **Any FAIL** = Not compliant — list the blocking issues
+- **Only WARN** = Mostly compliant — list recommendations
+
+---
+
+## Important Guidelines
+
+- Always **read actual files** before making a judgment. Do not assume based on directory names alone.
+- If the project is NOT a monorepo at all (single package.json, no workspaces), report that upfront and skip checks 2-7. Instead, recommend how to restructure as a monorepo.
+- If the user points you at a specific directory, treat that as the project root.
+- Be specific in fix recommendations — include exact package names to install, directory structures to create, and example code snippets where helpful.
+- Run checks in parallel where possible (e.g., server and client checks are independent).
