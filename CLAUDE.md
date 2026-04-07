@@ -1,18 +1,26 @@
 # TypeScript Engineering Plugin
 
-This is a Claude Code plugin that provides opinionated engineering skills for TypeScript projects. It enforces consistent architecture patterns, project structure, and best practices.
+This is a Claude Code plugin that provides an opinionated stack and architecture for TypeScript projects, inspired by Domain-Driven Design (DDD). It enforces consistent layered architecture, project structure, and best practices.
 
 ## Plugin Structure
 
-- `.claude/commands/` - Slash commands available as `/project:<command>` in Claude Code
-- `docs/` - Reference documentation for architecture decisions and patterns
+- `agents/practices/` - Shared architecture documentation (the rules)
+- `agents/skills/` - Skills that execute against those rules
+- `.claude/skills/` - Symlinks making skills available in Claude Code
+- `.claude/commands/` - Slash commands (e.g., `/project:tseng-bootstrap`, `/project:tseng-review`)
 
-## Architecture Principles
+## Practices (Source of Truth)
 
-1. **Functional core, imperative shell** - Pure business logic, side effects at the edges
-2. **Explicit over implicit** - No magic; prefer clear, traceable code paths
-3. **Colocation** - Keep related code together (tests, types, styles next to implementation)
-4. **Barrel-free** - No index.ts re-exports; import directly from source modules
-5. **Strict TypeScript** - No `any`, no type assertions unless absolutely necessary
-6. **Dependency injection** - Pass dependencies explicitly; no hidden singletons
-7. **Error as values** - Use Result types over thrown exceptions for expected failures
+The architecture rules and conventions live in `agents/practices/`. All skills read from these documents — they are the single source of truth.
+
+- **`architecture.md`** — Three-layer DDD architecture: validation (tRPC) → application (services) → domain (pure TS). Dependency rules, error handling.
+- **`stack.md`** — Technology choices: tRPC, Zod, strict TypeScript, pnpm. Rationale for each.
+- **`project-structure.md`** — Monorepo layout, package responsibilities, workspace config, TypeScript config, project metadata format.
+
+## Skills
+
+### `tseng-bootstrap`
+Bootstrap a new greenfield project following the practices. Creates the full monorepo scaffold with sample code in each layer.
+
+### `tseng-review`
+Audit an existing project against the practices. Produces a structured report of conformance, violations, and suggestions.
