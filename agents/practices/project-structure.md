@@ -70,6 +70,8 @@ The root `tsconfig.base.json` provides shared strict settings. Each package exte
 }
 ```
 
+The server package must add `"types": ["node"]` in its `compilerOptions` (with `@types/node` as a dev dependency) since it runs in Node, not the browser.
+
 ## Project Metadata (`tseng/project-structure.md`)
 
 After bootstrapping or reviewing, a `tseng/project-structure.md` file records the project layout with machine-readable HTML comments for tooling:
