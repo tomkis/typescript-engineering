@@ -22,7 +22,7 @@ Audits an existing TypeScript project against the architecture practices.
    - **Passes** — rules the project satisfies
    - **Violations** — rules that are broken, citing specific files and lines
    - **Suggestions** — actionable steps to fix each violation
-5. If `tseng/project-structure.md` is missing or outdated, offer to create or update it.
+5. If a `tseng/` folder exists with metadata files, check whether they are outdated and offer to update them. Do not flag the absence of `tseng/` — it is a generated folder created only when the project adopts tseng.
 
 ## Guidelines
 
