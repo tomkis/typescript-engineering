@@ -4,7 +4,7 @@ Coding agents produce little to no architecture in greenfield TypeScript project
 
 This Claude Code plugin fills that gap. When you're starting a new client-server TypeScript project, it gives the agent an opinionated architecture to follow — monorepo layout, tRPC for the API layer, and a DDD-inspired separation of domain, application, and validation layers.
 
-Bootstrap a new project or validate an existing one:
+Bootstrap a new project:
 
 ```
 /project:tseng-bootstrap
