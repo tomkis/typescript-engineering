@@ -10,14 +10,15 @@ description: >
 
 # TSEng Review
 
-Audits an existing TypeScript project against the architecture practices.
+Audits an existing TypeScript project against the architecture rules.
 
 ## How It Works
 
-1. Read all files in `agents/practices/` — they define the rules you are auditing against.
-2. Discover the project layout: check `tseng/project-structure.md` if it exists, otherwise scan the codebase.
-3. Compare what you find against every rule and convention in the practices. Derive the checklist from the docs — don't use a hardcoded list.
-4. Produce a structured report:
+1. Read `agents/architecture/index.md` — it describes the overall architecture and points to deeper dives on each topic.
+2. Read the specific architecture files relevant to what you're auditing. Load them as needed rather than all at once.
+3. Discover the project layout: check `tseng/project-structure.md` if it exists, otherwise scan the codebase.
+4. Compare what you find against every rule and convention in the architecture. Derive the checklist from the docs — don't use a hardcoded list.
+5. Produce a structured report:
    - **Summary** — one-line overall assessment
    - **Passes** — rules the project satisfies
    - **Violations** — rules that are broken, citing specific files and lines
@@ -29,4 +30,4 @@ Audits an existing TypeScript project against the architecture practices.
 - This is a **read-only audit** by default. Don't modify files unless the user asks you to fix violations.
 - Be specific — cite file paths and line numbers.
 - If the project doesn't use the expected stack at all, say so and suggest whether bootstrapping from scratch would be more appropriate.
-- The practices are the source of truth — derive all checks from them.
+- The architecture docs are the source of truth — derive all checks from them.

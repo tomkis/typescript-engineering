@@ -1,0 +1,9 @@
+# TypeScript Engineering Architecture
+
+Opinionated architecture for TypeScript client-server projects. Read this overview first to understand the full picture, then drill into specific files for details.
+
+## Topics
+
+- **[Stack](stack.md)** — Technology choices: tRPC, Zod, Express, strict TypeScript, pnpm. Server runtime, client setup, dev proxy, shared types.
+- **[Architecture](architecture.md)** — Three-layer DDD model: validation (tRPC routers) → application (services) → domain (pure TS). Dependency rules, error handling.
+- **[Project Structure](project-structure.md)** — Monorepo layout, package responsibilities, workspace config, TypeScript config, project metadata format.
