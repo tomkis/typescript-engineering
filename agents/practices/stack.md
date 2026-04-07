@@ -34,11 +34,40 @@ The base `tsconfig.json` enables strict mode and additional checks:
 - `noEmit: true` (type-checking only; bundler handles emit)
 - Path aliases via `paths` for clean imports between layers
 
+## Server Runtime
+
+The server uses Express with the tRPC Express adapter (`@trpc/server/adapters/express`). The app router is always mounted at `/trpc`:
+
+```ts
+app.use("/trpc", createExpressMiddleware({ router: appRouter }));
+```
+
+**Required dependencies:** `express`, `@trpc/server`
+**Required dev dependencies:** `@types/express`, `@types/node`
+
 ## Client
 
 The client connects to the server via a tRPC client. The specific UI framework is flexible (React, Vue, Solid, etc.), but the tRPC client setup is always present to guarantee end-to-end type safety.
 
 When React is used, prefer `@trpc/react-query` for data fetching.
+
+## Dev Proxy
+
+In development, the client dev server (e.g., Vite) proxies `/trpc` to the backend. This avoids CORS entirely — no CORS headers on the server.
+
+```ts
+// vite.config.ts
+server: {
+  proxy: {
+    "/trpc": {
+      target: "http://localhost:3000",
+      changeOrigin: true,
+    },
+  },
+}
+```
+
+The tRPC client URL should be `/trpc` (relative), not an absolute URL.
 
 ## Shared Types
 
