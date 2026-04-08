@@ -7,6 +7,7 @@ Claude Code plugin providing an opinionated TypeScript client-server architectur
 - `.claude-plugin/plugin.json` - Plugin manifest
 - `skills/bootstrap/` - Scaffolds new projects (`/tseng:bootstrap`)
 - `skills/review/` - Audits existing projects (`/tseng:review`)
+- `skills/adopt/` - Adopts architecture in existing projects (`/tseng:adopt`)
 - `commands/` - Slash command definitions
 - `architecture/` - Architecture documentation (the rules, source of truth)
 
@@ -21,3 +22,6 @@ Bootstrap a new greenfield project following the architecture. Creates the full 
 
 ### `review`
 Audit an existing project against the architecture. Produces a structured report of conformance, violations, and suggestions.
+
+### `adopt`
+Incrementally adopt the architecture in an existing project. Runs review first, proposes changes, tracks accepted/discarded decisions in `tseng/adoption.md`, and updates the project's CLAUDE.md.
