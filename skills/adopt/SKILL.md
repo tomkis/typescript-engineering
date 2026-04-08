@@ -19,7 +19,7 @@ Run the full review process to understand the current state:
 
 1. Read `architecture/index.md` from the plugin directory.
 2. Read every file linked from the index.
-3. Extract every concrete, verifiable rule into a checklist.
+3. Extract every concrete, verifiable rule into a checklist. Do not include `tseng/` files (index.md, project-structure.md, adoption.md) in the checklist — those are outputs of the adopt process, not rules to audit.
 4. Write the checklist to `tseng/review-checklist.md` in the target project.
 5. Launch a subagent to audit every checklist item (same as review skill).
 
