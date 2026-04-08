@@ -20,9 +20,10 @@ Scaffolds a new greenfield TypeScript client-server monorepo.
 4. Ask the user for a project name (or infer from the directory name), server runtime (Hono or Express, default: Hono), and package manager preference (default: pnpm).
 5. Scaffold the full monorepo with working sample code in every layer, conforming to the architecture.
 6. Write `tseng/project-structure.md` with the project metadata format described in the architecture docs.
-7. Write `tseng/index.md` using the template from the architecture docs (include only the "Project Metadata" section since this is a fresh project).
-8. Add a `## TSEng` section to the project's root `CLAUDE.md` pointing to `tseng/index.md`. If `CLAUDE.md` doesn't exist, create it.
-9. Tell the user what was created and suggest next steps.
+7. Generate a review checklist from the architecture docs (same process as review/adopt: read all linked files, extract every concrete verifiable rule). Write it to `tseng/review-checklist.md` with all items marked ✅ — the scaffold conforms by construction.
+8. Write `tseng/index.md` using the template from the architecture docs. Include sections for both "Project Metadata" and "Review" since the checklist now exists.
+9. Add a `## TSEng` section to the project's root `CLAUDE.md` pointing to `tseng/index.md`. If `CLAUDE.md` doesn't exist, create it.
+10. Tell the user what was created and suggest next steps.
 
 ## Guidelines
 
