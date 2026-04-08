@@ -29,5 +29,6 @@ Audits an existing TypeScript project against the architecture rules.
 
 - This is a **read-only audit** by default. Don't modify files unless the user asks you to fix violations.
 - Be specific — cite file paths and line numbers.
+- The server runtime is pluggable (Hono or Express). Accept either as valid. Check `server_runtime` in `tseng/project-structure.md` if present, otherwise detect from dependencies.
 - If the project doesn't use the expected stack at all, say so and suggest whether bootstrapping from scratch would be more appropriate.
 - The architecture docs are the source of truth — derive all checks from them.
