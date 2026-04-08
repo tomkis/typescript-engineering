@@ -39,6 +39,7 @@ project-root/
 The server package contains the API and all backend logic, organized into the three architectural layers (see `architecture.md`).
 
 **Required dependencies:** `@trpc/server`, `zod`
+**Required dev dependencies:** `@types/node`
 
 ### `packages/client/`
 
@@ -71,7 +72,7 @@ The root `tsconfig.base.json` provides shared strict settings. Each package exte
 }
 ```
 
-The server package must add `"types": ["node"]` in its `compilerOptions` (with `@types/node` as a dev dependency) since it runs in Node, not the browser.
+The server package must add `"types": ["node"]` in its `compilerOptions` since it runs in Node, not the browser.
 
 ## Project Metadata (`tseng/project-structure.md`)
 
