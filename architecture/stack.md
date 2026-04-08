@@ -43,7 +43,7 @@ The server runtime is pluggable. Supported options:
 | [Hono](https://hono.dev/) | `@hono/trpc-server` | Yes |
 | [Express](https://expressjs.com/) | `@trpc/server/adapters/express` | No |
 
-The tRPC router is always mounted at `/trpc`.
+The tRPC router is mounted at `/trpc` by default. Projects may use a different mount path or multiple root routers as long as the modularization approach described later is followed.
 
 ### Hono (default)
 
@@ -90,9 +90,9 @@ The client connects to the server via a tRPC client. The specific UI framework i
 
 When React is used, prefer `@trpc/react-query` for data fetching.
 
-## Dev Proxy
+## CORS / Dev Proxy
 
-In development, the client dev server (e.g., Vite) proxies `/trpc` to the backend. This avoids CORS entirely — no CORS headers on the server.
+By default in development, the client dev server (e.g., Vite) proxies tRPC requests to the backend. This avoids CORS entirely — no CORS headers on the server. The proxy path should match the mount path.
 
 ```ts
 // vite.config.ts
@@ -106,7 +106,9 @@ server: {
 }
 ```
 
-The tRPC client URL should be `/trpc` (relative), not an absolute URL.
+When using a dev proxy, the tRPC client URL should be relative (e.g., `/trpc`), not an absolute URL.
+
+Alternatively, projects may handle CORS directly on the server (e.g., via middleware). This works for both development and production and removes the need for a dev proxy. In that case the tRPC client URL will be absolute.
 
 ## Shared Types
 
