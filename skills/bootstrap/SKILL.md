@@ -14,12 +14,13 @@ Scaffolds a new greenfield TypeScript client-server monorepo.
 
 ## How It Works
 
-1. Read `architecture/index.md` — it describes the overall architecture and points to deeper dives on each topic.
-2. Read the specific architecture files you need for the current step of bootstrapping. You will likely need all of them, but load them as you go rather than all at once.
-3. Ask the user for a project name (or infer from the directory name), server runtime (Hono or Express, default: Hono), and package manager preference (default: pnpm).
-4. Scaffold the full monorepo with working sample code in every layer, conforming to the architecture.
-5. Write `tseng/project-structure.md` with the project metadata format described in the architecture docs.
-6. Tell the user what was created and suggest next steps.
+1. **Greenfield check** — List the target directory contents. If it contains existing source code, `package.json`, or a `packages/` directory, **stop immediately** and tell the user this skill is for greenfield projects only. Suggest using the `review` skill instead to audit their existing project. Only allow proceeding if the directory is empty or contains only dotfiles (`.git`, `.gitignore`, etc.), `README.md`, or `LICENSE`.
+2. Read `architecture/index.md` — it describes the overall architecture and points to deeper dives on each topic.
+3. Read the specific architecture files you need for the current step of bootstrapping. You will likely need all of them, but load them as you go rather than all at once.
+4. Ask the user for a project name (or infer from the directory name), server runtime (Hono or Express, default: Hono), and package manager preference (default: pnpm).
+5. Scaffold the full monorepo with working sample code in every layer, conforming to the architecture.
+6. Write `tseng/project-structure.md` with the project metadata format described in the architecture docs.
+7. Tell the user what was created and suggest next steps.
 
 ## Guidelines
 
