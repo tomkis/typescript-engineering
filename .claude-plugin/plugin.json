@@ -1,0 +1,8 @@
+{
+  "name": "tseng",
+  "description": "Opinionated TypeScript client-server architecture plugin inspired by DDD. Enforces layered architecture, project structure, and technology choices.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Tomas Weiss"
+  }
+}
