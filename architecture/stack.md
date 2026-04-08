@@ -30,7 +30,6 @@ The opinionated stack for TypeScript client-server projects.
 The base `tsconfig.json` enables strict mode and additional checks:
 
 - `strict: true` (enables `strictNullChecks`, `noImplicitAny`, etc.)
-- `noUncheckedIndexedAccess: true`
 - `noEmit: true` (type-checking only; bundler handles emit)
 - Path aliases via `paths` for clean imports between layers
 
@@ -112,4 +111,4 @@ Alternatively, projects may handle CORS directly on the server (e.g., via middle
 
 ## Shared Types
 
-The `AppRouter` type is exported from the server and consumed by the client through a shared package. This is the single source of truth for the API contract — no manual type duplication.
+The `AppRouter` type is consumed by the client through an API contract package — a workspace package that exports API type definitions. This is the single source of truth for the API contract — no manual type duplication. The naming and scope of this package is flexible.

@@ -22,12 +22,13 @@ project-root/
 │   │   ├── tsconfig.json         # Extends ../../tsconfig.base.json
 │   │   └── src/
 │   │       └── ...               # UI + tRPC client setup
-│   └── shared/
+│   └── <api-contract-pkg>/
 │       ├── package.json
 │       ├── tsconfig.json         # Extends ../../tsconfig.base.json
 │       └── src/
-│           └── index.ts          # Re-exports AppRouter type
+│           └── index.ts          # Exports AppRouter type
 └── tseng/
+    ├── index.md                  # Entry point — progressive disclosure to other files
     └── project-structure.md      # Auto-generated project metadata
 ```
 
@@ -45,9 +46,9 @@ The client package consumes the API via a typed tRPC client. The UI framework is
 
 **Required dependencies:** `@trpc/client`
 
-### `packages/shared/`
+### API contract package
 
-A lightweight package that re-exports the `AppRouter` type from the server. This enables end-to-end type safety without coupling the client directly to server internals.
+A workspace package that exports the `AppRouter` type and API type definitions for the client to consume. This enables end-to-end type safety without coupling the client directly to server internals. The naming and scope of this package is flexible — it may only re-export types, or it may also contain the router definitions themselves.
 
 ## Workspace Configuration
 
@@ -90,3 +91,26 @@ After bootstrapping or reviewing, a `tseng/project-structure.md` file records th
 Valid values for `server_runtime`: `hono` (default), `express`.
 
 This file is the source of truth for other skills that need to locate packages.
+
+## TSEng Index (`tseng/index.md`)
+
+The `tseng/index.md` file is the entry point for all TSEng context in a project. The project's `CLAUDE.md` points here; everything else is discovered through progressive disclosure.
+
+Template (adapt based on which files exist):
+
+```markdown
+# TSEng
+
+This project follows the TypeScript Engineering architecture.
+
+## Project Metadata
+See [project-structure.md](project-structure.md) for workspace layout, package manager, and server runtime.
+
+## Adoption Progress
+See [adoption.md](adoption.md) for applied, discarded, and remaining architecture changes.
+
+## Review
+See [review-checklist.md](review-checklist.md) for the latest architecture audit checklist.
+```
+
+Only include sections for files that actually exist. For a bootstrapped project, only "Project Metadata" will be present. For an adopted project, "Adoption Progress" will also appear.

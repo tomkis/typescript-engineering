@@ -45,6 +45,7 @@ Generated from architecture docs. Each item is a concrete rule to verify.
 
 Rules for generating the checklist:
 - **ONLY** include rules explicitly stated in the architecture docs. Do not infer, extrapolate, or add "best practices" that aren't written down.
+- Do not include `tseng/` files (index.md, project-structure.md, adoption.md) as checklist items — those are generated outputs, not architecture rules.
 - Each item must be verifiable by reading files (checking imports, config values, directory structure, etc.)
 - Use the exact terminology from the docs
 - Group items by source file (Stack, Architecture, Project Structure)
