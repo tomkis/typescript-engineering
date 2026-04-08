@@ -1,11 +1,11 @@
 ---
-name: tseng-review
+name: review
 description: >
   Review an existing TypeScript project against the opinionated architecture rules.
   Use when the user asks to review, audit, check, or validate their project's architecture.
   Triggers on phrases like "review my project", "check the architecture",
   "audit my code structure", "validate my project", or "does my project follow the rules".
-  Also invocable via the /project:tseng-review slash command.
+  Also invocable via the /tseng:review slash command.
 ---
 
 # TSEng Review
@@ -14,7 +14,7 @@ Audits an existing TypeScript project against the architecture rules.
 
 ## How It Works
 
-1. Read `agents/architecture/index.md` — it describes the overall architecture and points to deeper dives on each topic.
+1. Read `architecture/index.md` — it describes the overall architecture and points to deeper dives on each topic.
 2. Read the specific architecture files relevant to what you're auditing. Load them as needed rather than all at once.
 3. Discover the project layout: check `tseng/project-structure.md` if it exists, otherwise scan the codebase.
 4. Compare what you find against every rule and convention in the architecture. Derive the checklist from the docs — don't use a hardcoded list.

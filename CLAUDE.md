@@ -1,17 +1,18 @@
 # TypeScript Engineering Plugin
 
-This is a Claude Code plugin that provides an opinionated architecture for TypeScript projects, inspired by Domain-Driven Design (DDD). It enforces consistent layered architecture, project structure, and technology choices.
+Claude Code plugin providing an opinionated TypeScript client-server architecture inspired by DDD. Enforces layered architecture, project structure, and technology choices.
 
 ## Plugin Structure
 
-- `agents/architecture/` - Architecture documentation (the rules)
-- `agents/skills/` - Skills that execute against those rules
-- `.claude/skills/` - Symlinks making skills available in Claude Code
-- `.claude/commands/` - Slash commands (e.g., `/project:tseng-bootstrap`, `/project:tseng-review`)
+- `.claude-plugin/plugin.json` - Plugin manifest
+- `skills/bootstrap/` - Scaffolds new projects (`/tseng:bootstrap`)
+- `skills/review/` - Audits existing projects (`/tseng:review`)
+- `commands/` - Slash command definitions
+- `architecture/` - Architecture documentation (the rules, source of truth)
 
 ## Architecture (Source of Truth)
 
-The architecture rules and conventions live in `agents/architecture/`. The entry point is `agents/architecture/index.md` — skills read the index first and progressively load specific files as needed.
+The architecture rules live in `architecture/`. The entry point is `architecture/index.md` — skills read the index first and progressively load specific files as needed.
 
 - **`index.md`** — Entry point. Describes the overall architecture and points to deeper dives.
 - **`architecture.md`** — Three-layer DDD architecture: validation (tRPC) → application (services) → domain (pure TS). Dependency rules, error handling.
@@ -20,8 +21,8 @@ The architecture rules and conventions live in `agents/architecture/`. The entry
 
 ## Skills
 
-### `tseng-bootstrap`
+### `bootstrap`
 Bootstrap a new greenfield project following the architecture. Creates the full monorepo scaffold with sample code in each layer.
 
-### `tseng-review`
+### `review`
 Audit an existing project against the architecture. Produces a structured report of conformance, violations, and suggestions.
