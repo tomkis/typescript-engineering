@@ -36,10 +36,49 @@ The base `tsconfig.json` enables strict mode and additional checks:
 
 ## Server Runtime
 
-The server uses Express with the tRPC Express adapter (`@trpc/server/adapters/express`). The app router is always mounted at `/trpc`:
+The server runtime is pluggable. Supported options:
+
+| Runtime | Adapter | Default |
+|---------|---------|---------|
+| [Hono](https://hono.dev/) | `@hono/trpc-server` | Yes |
+| [Express](https://expressjs.com/) | `@trpc/server/adapters/express` | No |
+
+The tRPC router is always mounted at `/trpc`.
+
+### Hono (default)
 
 ```ts
+import { Hono } from "hono";
+import { trpcServer } from "@hono/trpc-server";
+import { appRouter } from "./routers/index.js";
+
+const app = new Hono();
+
+app.use("/trpc/*", trpcServer({ router: appRouter }));
+
+export default {
+  port: 3000,
+  fetch: app.fetch,
+};
+```
+
+**Required dependencies:** `hono`, `@hono/trpc-server`, `@trpc/server`
+**Required dev dependencies:** `@types/node`
+
+### Express
+
+```ts
+import express from "express";
+import { createExpressMiddleware } from "@trpc/server/adapters/express";
+import { appRouter } from "./routers/index.js";
+
+const app = express();
+
 app.use("/trpc", createExpressMiddleware({ router: appRouter }));
+
+app.listen(3000, () => {
+  console.log("Server listening on http://localhost:3000");
+});
 ```
 
 **Required dependencies:** `express`, `@trpc/server`

@@ -78,6 +78,7 @@ After bootstrapping or reviewing, a `tseng/project-structure.md` file records th
 
 ```markdown
 <!-- package_manager: pnpm -->
+<!-- server_runtime: hono -->
 <!-- server_path: packages/server -->
 <!-- server_package_name: @myapp/server -->
 <!-- client_path: packages/client -->
@@ -85,5 +86,7 @@ After bootstrapping or reviewing, a `tseng/project-structure.md` file records th
 <!-- workspace_root: . -->
 <!-- workspace_config: pnpm-workspace.yaml -->
 ```
+
+Valid values for `server_runtime`: `hono` (default), `express`.
 
 This file is the source of truth for other skills that need to locate packages.

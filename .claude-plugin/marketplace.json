@@ -1,0 +1,13 @@
+{
+  "name": "tseng-marketplace",
+  "owner": {
+    "name": "Tomas Weiss"
+  },
+  "plugins": [
+    {
+      "name": "tseng",
+      "source": "./",
+      "description": "Opinionated TypeScript client-server architecture plugin inspired by DDD"
+    }
+  ]
+}
