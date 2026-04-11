@@ -40,7 +40,7 @@ project-root/
 
 ### `packages/server/`
 
-The server package contains the API and all backend logic, organized into modules. Each module is a bounded context expressed as a vertical slice containing the three architectural layers (see [architecture.md](architecture.md) and [modules.md](modules.md)).
+The server package contains the API and all backend logic, organized into modules. Each module is a bounded context expressed as a vertical slice containing the three architectural layers (see [slice-composition.md](slice-composition.md) and [modules.md](modules.md)).
 
 **Required dependencies:** `@trpc/server`, `zod`
 **Required dev dependencies:** `@types/node`

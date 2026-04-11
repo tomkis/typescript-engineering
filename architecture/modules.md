@@ -57,7 +57,7 @@ packages/server/src/
 
 ### Intra-Module Rules
 
-Within a module, the standard layer rules apply (see [architecture.md](architecture.md)):
+Within a module, the standard layer rules apply (see [slice-composition.md](slice-composition.md)):
 
 ```
 routers → services → domain
