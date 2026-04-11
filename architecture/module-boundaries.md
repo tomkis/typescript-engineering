@@ -1,10 +1,10 @@
-# Domain Events
+# Module Boundaries
 
-Modules communicate exclusively through **domain events**. No module may import another module's internals (services, entities, routers). The only cross-module imports allowed are event types and type guards from a module's `index.ts`.
+Bounded contexts must stay loosely coupled. No module may import another module's internals (services, entities, routers). The only cross-module imports allowed are event types and type guards from a module's `index.ts`.
 
-A domain event is a record of something meaningful that happened in the domain. Events are named in past tense using business language: `OrderPlaced`, `UserRegistered`, `PaymentCompleted`.
+Modules communicate exclusively through **domain events** — records of something meaningful that happened in the domain, named in past tense using business language: `OrderPlaced`, `UserRegistered`, `PaymentCompleted`.
 
-## Ownership
+## Event Ownership
 
 Events are defined in the **publishing module's** domain layer:
 
@@ -14,7 +14,7 @@ modules/orders/domain/events/OrderPlaced.ts
 
 The publishing module is the single source of truth for the event's shape.
 
-## Structure
+## Event Structure
 
 ```typescript
 // modules/orders/domain/events/OrderPlaced.ts

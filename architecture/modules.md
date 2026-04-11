@@ -84,7 +84,7 @@ export { type OrderCancelled, isOrderCancelled } from './domain/events/OrderCanc
 
 ## Topics
 
-- **[Domain Events](domain-events.md)** — Inter-module communication via domain events. Event ownership, structure, type guards, subscribing, and dependency direction between modules.
+- **[Module Boundaries](module-boundaries.md)** — How bounded contexts stay loosely coupled. Domain events as the sole inter-module communication mechanism, event ownership, subscribing, dependency direction, and what cross-module imports are forbidden.
 
 ## Identifying Bounded Contexts
 
