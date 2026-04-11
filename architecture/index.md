@@ -6,5 +6,5 @@ Opinionated architecture for TypeScript client-server projects. Read this overvi
 
 - **[Stack](stack.md)** — Technology choices: tRPC, Zod, Hono/Express, strict TypeScript, pnpm. Server runtime, client setup, dev proxy, shared types.
 - **[Architecture](architecture.md)** — Three-layer DDD model: validation (tRPC routers) → application (services) → domain (pure TS). Dependency rules, error handling.
-- **[Modules](modules.md)** — Bounded contexts as vertical slices. Module isolation, domain events for inter-module communication, public API boundaries.
+- **[Modules](modules.md)** — Bounded contexts as vertical slices. Module isolation, `index.ts` as public API boundary, intra-module layer rules. Links to [domain events](domain-events.md) for inter-module communication.
 - **[Project Structure](project-structure.md)** — Monorepo layout, package responsibilities, workspace config, TypeScript config, project metadata format.
