@@ -14,13 +14,13 @@ project-root/
 │   │   ├── package.json          # @trpc/server, zod
 │   │   ├── tsconfig.json         # Extends ../../tsconfig.base.json
 │   │   └── src/
-│   │       └── modules/          # Bounded contexts as vertical slices
+│   │       └── modules/          # See modules.md
 │   │           └── <module>/     # e.g., identity/, billing/, orders/
-│   │               ├── routers/  # Validation layer — tRPC + Zod
-│   │               ├── services/ # Application layer — business services
-│   │               ├── domain/   # Domain layer — pure TypeScript
-│   │               │   └── events/ # Domain events owned by this module
-│   │               └── index.ts  # Public API — event types + type guards
+│   │               ├── routers/  # Validation layer
+│   │               ├── services/ # Application layer
+│   │               ├── domain/   # Domain layer
+│   │               │   └── events/
+│   │               └── index.ts  # Public API
 │   ├── client/
 │   │   ├── package.json          # @trpc/client (+ framework deps)
 │   │   ├── tsconfig.json         # Extends ../../tsconfig.base.json
