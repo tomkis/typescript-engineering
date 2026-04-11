@@ -14,9 +14,13 @@ project-root/
 │   │   ├── package.json          # @trpc/server, zod
 │   │   ├── tsconfig.json         # Extends ../../tsconfig.base.json
 │   │   └── src/
-│   │       ├── routers/          # Validation layer — tRPC + Zod
-│   │       ├── services/         # Application layer — business services
-│   │       └── domain/           # Domain layer — pure TypeScript
+│   │       └── modules/          # See modules.md
+│   │           └── <module>/     # e.g., identity/, billing/, orders/
+│   │               ├── routers/  # Validation layer
+│   │               ├── services/ # Application layer
+│   │               ├── domain/   # Domain layer
+│   │               │   └── events/
+│   │               └── index.ts  # Public API
 │   ├── client/
 │   │   ├── package.json          # @trpc/client (+ framework deps)
 │   │   ├── tsconfig.json         # Extends ../../tsconfig.base.json
@@ -36,7 +40,7 @@ project-root/
 
 ### `packages/server/`
 
-The server package contains the API and all backend logic, organized into the three architectural layers (see `architecture.md`).
+The server package contains the API and all backend logic, organized into modules. Each module is a bounded context expressed as a vertical slice containing the three architectural layers (see [slice-composition.md](slice-composition.md) and [modules.md](modules.md)).
 
 **Required dependencies:** `@trpc/server`, `zod`
 **Required dev dependencies:** `@types/node`

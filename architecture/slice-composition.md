@@ -2,39 +2,41 @@
 
 The architecture follows a strict three-layer model inspired by Domain-Driven Design (DDD). Each layer has a clear responsibility and dependencies only flow inward — toward the domain.
 
+These layers exist **within each module**. The server is organized into modules, where each module is a vertical slice representing a bounded context (see [modules.md](modules.md)). The layers below live inside every module:
+
 ```
   External input
        │
        ▼
 ┌──────────────────────┐
 │  Validation Layer    │  tRPC routers + Zod schemas
-│  (src/routers/)      │  Parse, validate, sanitize — no business logic
+│  (routers/)          │  Parse, validate, sanitize — no business logic
 └──────────┬───────────┘
            │
            ▼
 ┌──────────────────────┐
 │  Application Layer   │  Business services
-│  (src/services/)     │  Orchestrate use cases, coordinate domain objects
+│  (services/)         │  Orchestrate use cases, coordinate domain objects
 └──────────┬───────────┘
            │
            ▼
 ┌──────────────────────┐
 │  Domain Layer        │  Pure TypeScript — zero external deps
-│  (src/domain/)       │  Entities, value objects, aggregates, domain events
+│  (domain/)           │  Entities, value objects, aggregates, domain events
 └──────────────────────┘
 ```
 
 ## Layer Rules
 
-### 1. Validation Layer (`src/routers/`)
+### 1. Validation Layer (`routers/`)
 
 - tRPC routers define the API surface and handle input validation via Zod schemas.
 - Responsible for parsing, validating, and sanitizing external input.
 - **No business logic lives here** — routers delegate immediately to business services.
 - tRPC context provides dependency injection of services.
-- Each router file maps to a bounded context or resource (e.g., `userRouter`, `orderRouter`).
+- Each router file maps to a resource within the module's bounded context.
 
-### 2. Application Layer (`src/services/`)
+### 2. Application Layer (`services/`)
 
 - Business services orchestrate use cases and coordinate domain objects.
 - Services are pure functions or classes that receive dependencies via injection.
@@ -42,7 +44,7 @@ The architecture follows a strict three-layer model inspired by Domain-Driven De
 - Transaction boundaries and cross-cutting concerns (logging, auth checks) live here.
 - Services never import from the validation layer.
 
-### 3. Domain Layer (`src/domain/`)
+### 3. Domain Layer (`domain/`)
 
 - The innermost layer — pure TypeScript with **zero external dependencies**.
 - Contains domain entities, value objects, aggregates, and domain events.
