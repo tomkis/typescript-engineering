@@ -33,3 +33,7 @@ Upgrade a previously bootstrapped or adopted project when architecture evolves:
 ## How It Works
 
 The architecture rules live in `architecture/` as standalone documentation. Skills read the index first to understand the full picture, then drill into specific files as needed. Rules are defined once and enforced consistently whether you're scaffolding from scratch, auditing an existing codebase, or incrementally adopting the architecture.
+
+### Immutable Review Records
+
+Every review, adopt, and upgrade run produces an **immutable review record** in the target project's `tseng/reviews/` directory. Each record is a numbered file (`001.md`, `002.md`, ...) that embeds the plugin version and a full checklist. Records are locked once finalized and never modified — new runs always append. This gives you a complete audit trail of architectural compliance over time.

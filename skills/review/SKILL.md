@@ -10,31 +10,52 @@ description: >
 
 # TSEng Review
 
-Audits an existing TypeScript project against the architecture rules using a two-phase approach to prevent hallucination.
+Audits an existing TypeScript project against the architecture rules using a two-phase approach to prevent hallucination. Each review produces an **immutable record** appended to `tseng/reviews/`.
 
-## Phase 1 — Generate Checklist
+## Phase 1 — Get Plugin Version
+
+Run `bash scripts/version.sh` from the plugin directory to obtain the current tseng version. This version is embedded in the review record so every checklist is traceable to the architecture revision that produced it.
+
+## Phase 2 — Generate Checklist
 
 You (the main agent) generate a strict checklist from the architecture docs.
 
 1. Read `architecture/index.md` from the plugin directory.
 2. Read every file linked from the index.
 3. Extract every concrete, verifiable rule from the docs. Each rule becomes a checklist item.
-4. Write the checklist to `tseng/review-checklist.md` in the **target project**.
 
-### Checklist format
+### Checklist rules
 
-Each item must be a single, unambiguous yes/no check. No vague or subjective items.
+- **ONLY** include rules explicitly stated in the architecture docs. Do not infer, extrapolate, or add "best practices" that aren't written down.
+- Do not include `tseng/` files (index.md, project-structure.md, adoption.md, reviews/) as checklist items — those are generated outputs, not architecture rules.
+- Each item must be verifiable by reading files (checking imports, config values, directory structure, etc.)
+- Use the exact terminology from the docs.
+- Group items by source file (Stack, Architecture, Project Structure).
+
+## Phase 3 — Assign Review Number & Write Record
+
+Determine the next review number:
+
+1. Check if `tseng/reviews/index.md` exists in the target project. If it does, read it to find the highest existing review number.
+2. If no index exists, the next number is `001`.
+3. Otherwise increment: if the last review is `003`, the next is `004`.
+
+Write the checklist to `tseng/reviews/NNN.md` using this format:
 
 ```markdown
-# Review Checklist
+# Review #NNN
 
-Generated from architecture docs. Each item is a concrete rule to verify.
+<!-- tseng_version: {version} -->
+<!-- status: open -->
+<!-- created: {YYYY-MM-DD} -->
+
+Generated from architecture docs (tseng v{version}).
 
 ## Stack
 - [ ] Uses tRPC for API layer
 - [ ] Uses Zod for input validation
 - [ ] TypeScript strict mode enabled (`strict: true` in tsconfig)
-- [ ] ...
+- ...
 
 ## Architecture
 - [ ] ...
@@ -43,14 +64,23 @@ Generated from architecture docs. Each item is a concrete rule to verify.
 - [ ] ...
 ```
 
-Rules for generating the checklist:
-- **ONLY** include rules explicitly stated in the architecture docs. Do not infer, extrapolate, or add "best practices" that aren't written down.
-- Do not include `tseng/` files (index.md, project-structure.md, adoption.md) as checklist items — those are generated outputs, not architecture rules.
-- Each item must be verifiable by reading files (checking imports, config values, directory structure, etc.)
-- Use the exact terminology from the docs
-- Group items by source file (Stack, Architecture, Project Structure)
+The `status` is always `open` for review — the review skill is read-only and does not lock records. Only adopt and upgrade lock records.
 
-## Phase 2 — Audit via Subagent
+## Phase 4 — Update Reviews Index
+
+Write or update `tseng/reviews/index.md`:
+
+```markdown
+# Review History
+
+| # | Date | TSEng Version | Status |
+|---|------|---------------|--------|
+| [001](001.md) | 2026-04-12 | 1.0.0 | open |
+```
+
+Append the new row. Never modify existing rows.
+
+## Phase 5 — Audit via Subagent
 
 Launch a subagent (using the Agent tool) to perform the actual audit. The subagent prompt must:
 - Include the full contents of the generated checklist (copy-paste it into the prompt)
@@ -75,13 +105,15 @@ CHECKLIST:
 {checklist_contents}
 ```
 
-## Phase 3 — Report
+## Phase 6 — Report
 
 Take the subagent's output and present the final report to the user:
 - **Summary** — one-line overall assessment
 - **Passes** — rules the project satisfies
 - **Violations** — rules that are broken, with file/line citations from the subagent
 - **Suggestions** — actionable fix for each violation
+
+Do **not** update the review record with audit results — the review skill is read-only. The record stays `open` with unchecked boxes. Only adopt and upgrade mark items and lock records.
 
 ## Guidelines
 
@@ -90,3 +122,4 @@ Take the subagent's output and present the final report to the user:
 - If a `tseng/project-structure.md` exists, check whether it is outdated and offer to update it.
 - Do not flag the absence of `tseng/` — it is a generated folder.
 - If the project doesn't use the expected stack at all, say so and suggest whether bootstrapping from scratch would be more appropriate.
+- Review records are **immutable once written**. Never modify a previously written review file. Always append a new record.
