@@ -33,7 +33,12 @@ project-root/
 │           └── index.ts          # Exports AppRouter type
 └── tseng/
     ├── index.md                  # Entry point — progressive disclosure to other files
-    └── project-structure.md      # Auto-generated project metadata
+    ├── project-structure.md      # Auto-generated project metadata
+    └── reviews/
+        ├── index.md              # Append-only review history table
+        ├── 001.md                # First review (immutable once locked)
+        ├── 002.md                # Second review (immutable once locked)
+        └── ...                   # One file per review, never modified after locking
 ```
 
 ## Package Responsibilities
@@ -114,8 +119,8 @@ See [project-structure.md](project-structure.md) for workspace layout, package m
 ## Adoption Progress
 See [adoption.md](adoption.md) for applied, discarded, and remaining architecture changes.
 
-## Review
-See [review-checklist.md](review-checklist.md) for the latest architecture audit checklist.
+## Review History
+See [reviews/index.md](reviews/index.md) for the full history of architecture reviews. Each review is an immutable record that is locked once finalized.
 ```
 
-Only include sections for files that actually exist. For a bootstrapped project, only "Project Metadata" will be present. For an adopted project, "Adoption Progress" will also appear.
+Only include sections for files that actually exist. For a bootstrapped project, "Project Metadata" and "Review History" will be present. For an adopted project, "Adoption Progress" will also appear.
