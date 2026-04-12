@@ -15,9 +15,9 @@ Scaffolds a new greenfield TypeScript client-server monorepo.
 ## How It Works
 
 1. **Greenfield check** — List the target directory contents. If it contains existing source code, `package.json`, or a `packages/` directory, **stop immediately** and tell the user this skill is for greenfield projects only. Suggest using the `review` skill instead to audit their existing project. Only allow proceeding if the directory is empty or contains only dotfiles (`.git`, `.gitignore`, etc.), `README.md`, or `LICENSE`.
-2. **Get plugin version** — Run `bash scripts/version.sh` from the plugin directory to obtain the current tseng version. This version is embedded in the review record.
-3. Read `architecture/index.md` — it describes the overall architecture and points to deeper dives on each topic.
-4. Read the specific architecture files you need for the current step of bootstrapping. You will likely need all of them, but load them as you go rather than all at once.
+2. **Get version** — Run `bash ${CLAUDE_SKILL_DIR}/../../scripts/version.sh` to obtain the current tseng version. This version is embedded in the review record.
+3. Read `${CLAUDE_SKILL_DIR}/../../architecture/index.md` — it describes the overall architecture and points to deeper dives on each topic.
+4. Read the specific architecture files (under `${CLAUDE_SKILL_DIR}/../../architecture/`) you need for the current step of bootstrapping. You will likely need all of them, but load them as you go rather than all at once.
 5. Ask the user for a project name (or infer from the directory name), server runtime (Hono or Express, default: Hono), and package manager preference (default: pnpm).
 6. Scaffold the full monorepo with working sample code in every layer, conforming to the architecture.
 7. Write `tseng/project-structure.md` with the project metadata format described in the architecture docs.

@@ -17,16 +17,16 @@ Upgrades an existing project that previously ran bootstrap or adopt to reflect e
 
 The target project must have at least one **locked** review in `tseng/reviews/`. Read `tseng/reviews/index.md` to find the latest locked review. If no locked reviews exist, tell the user to run `/tseng:adopt` first — there's nothing to upgrade from.
 
-## Phase 1 — Get Plugin Version
+## Phase 1 — Get Version
 
-Run `bash scripts/version.sh` from the plugin directory to obtain the current tseng version.
+Run `bash ${CLAUDE_SKILL_DIR}/../../scripts/version.sh` to obtain the current tseng version.
 
 ## Phase 2 — Regenerate Checklist
 
 Generate a fresh checklist from the current architecture docs:
 
-1. Read `architecture/index.md` from the plugin directory.
-2. Read every file linked from the index.
+1. Read `${CLAUDE_SKILL_DIR}/../../architecture/index.md`.
+2. Read every file linked from the index (also under `${CLAUDE_SKILL_DIR}/../../architecture/`).
 3. Extract every concrete, verifiable rule into a checklist (same rules as review/adopt — no `tseng/` files, no inferred rules).
 
 Do NOT write this checklist to disk yet.
