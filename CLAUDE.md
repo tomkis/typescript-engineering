@@ -14,9 +14,9 @@ Distributable Claude Code skills providing an opinionated TypeScript client-serv
 
 ## Shared Static Files
 
-The `architecture/` directory contains the architecture rules that all skills read. Skills reference these files via `${CLAUDE_SKILL_DIR}/../../architecture/` — this resolves relative to each skill's directory back to the repo root, allowing all four skills to share a single copy of the architecture docs.
+The `architecture/` directory contains the architecture rules that all skills read. Each SKILL.md uses a bash injection block (`` ```! ``) at the top to resolve the skill repository root via `${CLAUDE_SKILL_DIR}/../..` — this resolves relative to each skill's directory back to the repo root, allowing all four skills to share a single copy of the architecture docs.
 
-The same pattern applies to `scripts/version.sh` — skills invoke it via `${CLAUDE_SKILL_DIR}/../../scripts/version.sh`.
+The same pattern applies to `scripts/version.sh` — skills resolve its path via the same injected root.
 
 ## Architecture (Source of Truth)
 

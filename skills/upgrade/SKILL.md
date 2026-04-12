@@ -9,6 +9,13 @@ description: >
   Also invocable via the /tseng:upgrade slash command.
 ---
 
+```!
+SKILL_ROOT="$(cd "${CLAUDE_SKILL_DIR}/../.." && pwd)"
+echo "Skill root: ${SKILL_ROOT}"
+echo "Architecture docs: ${SKILL_ROOT}/architecture/"
+echo "Version script: ${SKILL_ROOT}/scripts/version.sh"
+```
+
 # TSEng Upgrade
 
 Upgrades an existing project that previously ran bootstrap or adopt to reflect evolved architecture rules. Reads the **last locked review record**, diffs it against the current architecture docs, and creates a **new review record** for the delta.
@@ -19,14 +26,14 @@ The target project must have at least one **locked** review in `tseng/reviews/`.
 
 ## Phase 1 — Get Version
 
-Run `bash ${CLAUDE_SKILL_DIR}/../../scripts/version.sh` to obtain the current tseng version.
+Run the version script (shown above) to obtain the current tseng version.
 
 ## Phase 2 — Regenerate Checklist
 
 Generate a fresh checklist from the current architecture docs:
 
-1. Read `${CLAUDE_SKILL_DIR}/../../architecture/index.md`.
-2. Read every file linked from the index (also under `${CLAUDE_SKILL_DIR}/../../architecture/`).
+1. Read `architecture/index.md` from the skill root (shown above).
+2. Read every file linked from the index (also in the architecture docs directory shown above).
 3. Extract every concrete, verifiable rule into a checklist (same rules as review/adopt — no `tseng/` files, no inferred rules).
 
 Do NOT write this checklist to disk yet.

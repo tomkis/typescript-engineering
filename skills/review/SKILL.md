@@ -8,20 +8,27 @@ description: >
   Also invocable via the /tseng:review slash command.
 ---
 
+```!
+SKILL_ROOT="$(cd "${CLAUDE_SKILL_DIR}/../.." && pwd)"
+echo "Skill root: ${SKILL_ROOT}"
+echo "Architecture docs: ${SKILL_ROOT}/architecture/"
+echo "Version script: ${SKILL_ROOT}/scripts/version.sh"
+```
+
 # TSEng Review
 
 Audits an existing TypeScript project against the architecture rules using a two-phase approach to prevent hallucination. Each review produces an **immutable record** appended to `tseng/reviews/`.
 
 ## Phase 1 — Get Version
 
-Run `bash ${CLAUDE_SKILL_DIR}/../../scripts/version.sh` to obtain the current tseng version. This version is embedded in the review record so every checklist is traceable to the architecture revision that produced it.
+Run the version script (shown above) to obtain the current tseng version. This version is embedded in the review record so every checklist is traceable to the architecture revision that produced it.
 
 ## Phase 2 — Generate Checklist
 
 You (the main agent) generate a strict checklist from the architecture docs.
 
-1. Read `${CLAUDE_SKILL_DIR}/../../architecture/index.md`.
-2. Read every file linked from the index (also under `${CLAUDE_SKILL_DIR}/../../architecture/`).
+1. Read `architecture/index.md` from the skill root (shown above).
+2. Read every file linked from the index (also in the architecture docs directory shown above).
 3. Extract every concrete, verifiable rule from the docs. Each rule becomes a checklist item.
 
 ### Checklist rules
