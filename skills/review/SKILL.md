@@ -8,20 +8,25 @@ description: >
   Also invocable via the /tseng:review slash command.
 ---
 
+```!
+echo "Architecture docs: ${CLAUDE_SKILL_DIR}/architecture/"
+echo "Version: $(cat "${CLAUDE_SKILL_DIR}/VERSION")"
+```
+
 # TSEng Review
 
 Audits an existing TypeScript project against the architecture rules using a two-phase approach to prevent hallucination. Each review produces an **immutable record** appended to `tseng/reviews/`.
 
-## Phase 1 — Get Plugin Version
+## Phase 1 — Get Version
 
-Run `bash scripts/version.sh` from the plugin directory to obtain the current tseng version. This version is embedded in the review record so every checklist is traceable to the architecture revision that produced it.
+The current tseng version is shown above (injected from the VERSION file). This version is embedded in the review record so every checklist is traceable to the architecture revision that produced it.
 
 ## Phase 2 — Generate Checklist
 
 You (the main agent) generate a strict checklist from the architecture docs.
 
-1. Read `architecture/index.md` from the plugin directory.
-2. Read every file linked from the index.
+1. Read `architecture/index.md` from the architecture docs directory (shown above).
+2. Read every file linked from the index (in the same architecture docs directory).
 3. Extract every concrete, verifiable rule from the docs. Each rule becomes a checklist item.
 
 ### Checklist rules
@@ -86,7 +91,7 @@ Launch a subagent (using the Agent tool) to perform the actual audit. The subage
 - Include the full contents of the generated checklist (copy-paste it into the prompt)
 - Tell the subagent the project root path
 - Instruct the subagent to go through each checklist item, check pass/fail, and cite specific files/lines as evidence
-- **Do NOT include architecture docs, plugin context, or any other instructions in the subagent prompt**
+- **Do NOT include architecture docs, skill context, or any other instructions in the subagent prompt**
 
 Use this exact subagent prompt template:
 

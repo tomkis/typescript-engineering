@@ -1,17 +1,21 @@
-# TypeScript Engineering Plugin
+# TypeScript Engineering Skills
 
-Claude Code plugin providing an opinionated TypeScript client-server architecture inspired by DDD. Enforces layered architecture, project structure, and technology choices.
+Distributable Claude Code skills providing an opinionated TypeScript client-server architecture inspired by DDD. Enforces layered architecture, project structure, and technology choices.
 
-## Plugin Structure
+## Repository Structure
 
-- `.claude-plugin/plugin.json` - Plugin manifest (includes version)
-- `scripts/version.sh` - Outputs the current plugin version; skills embed this in every review record
-- `skills/bootstrap/` - Scaffolds new projects (`/tseng:bootstrap`)
-- `skills/review/` - Audits existing projects (`/tseng:review`)
-- `skills/adopt/` - Adopts architecture in existing projects (`/tseng:adopt`)
-- `skills/upgrade/` - Upgrades adopted/bootstrapped projects when architecture evolves (`/tseng:upgrade`)
-- `commands/` - Slash command definitions
+- `VERSION` - Current version; skills embed this in every review record
+- `skills/bootstrap/` - Scaffolds new projects
+- `skills/review/` - Audits existing projects
+- `skills/adopt/` - Adopts architecture in existing projects
+- `skills/upgrade/` - Upgrades adopted/bootstrapped projects when architecture evolves
 - `architecture/` - Architecture documentation (the rules, source of truth)
+
+## Shared Static Files
+
+The `architecture/` directory contains the architecture rules that all skills read. Each skill directory contains symlinks (`architecture -> ../../architecture`, `VERSION -> ../../VERSION`) so that when skills are installed via `npx skills add`, the shared files travel with each skill.
+
+Skills use a bash injection block (`` ```! ``) at the top of each SKILL.md to resolve these paths via `${CLAUDE_SKILL_DIR}`, making the architecture docs and version available at invocation time regardless of where the skill is installed.
 
 ## Architecture (Source of Truth)
 

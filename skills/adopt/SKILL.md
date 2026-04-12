@@ -9,20 +9,25 @@ description: >
   Also invocable via the /tseng:adopt slash command.
 ---
 
+```!
+echo "Architecture docs: ${CLAUDE_SKILL_DIR}/architecture/"
+echo "Version: $(cat "${CLAUDE_SKILL_DIR}/VERSION")"
+```
+
 # TSEng Adopt
 
 Incrementally adopts the opinionated TypeScript architecture in an existing project. Unlike bootstrap (greenfield only), adopt works with existing code and lets the user control which changes to apply. Produces an **immutable review record** that is locked once the user finalizes their decisions.
 
-## Phase 1 — Get Plugin Version
+## Phase 1 — Get Version
 
-Run `bash scripts/version.sh` from the plugin directory to obtain the current tseng version. This version is embedded in the review record.
+The current tseng version is shown above (injected from the VERSION file). This version is embedded in the review record.
 
 ## Phase 2 — Generate Checklist & Create Review Record
 
 Run the full review process to understand the current state:
 
-1. Read `architecture/index.md` from the plugin directory.
-2. Read every file linked from the index.
+1. Read `architecture/index.md` from the architecture docs directory (shown above).
+2. Read every file linked from the index (in the same architecture docs directory).
 3. Extract every concrete, verifiable rule into a checklist. Do not include `tseng/` files (index.md, project-structure.md, adoption.md, reviews/) in the checklist — those are outputs of the adopt process, not rules to audit.
 
 Determine the next review number by reading `tseng/reviews/index.md` (or starting at `001`).
