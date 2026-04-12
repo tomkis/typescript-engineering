@@ -110,7 +110,16 @@ CHECKLIST:
 {checklist_contents}
 ```
 
-## Phase 6 — Report
+## Phase 6 — Fill In Review Record
+
+After the subagent returns its audit results, update the review record (`tseng/reviews/NNN.md`) to reflect the findings:
+
+- For each item the subagent marked ✅ (pass), check the box: `- [x]`
+- For each item the subagent marked ❌ (fail) or ⚠️ (partial / N/A), leave the box unchecked: `- [ ]`
+
+The record keeps its `open` status — only adopt and upgrade lock records.
+
+## Phase 7 — Report
 
 Take the subagent's output and present the final report to the user:
 - **Summary** — one-line overall assessment
@@ -118,11 +127,9 @@ Take the subagent's output and present the final report to the user:
 - **Violations** — rules that are broken, with file/line citations from the subagent
 - **Suggestions** — actionable fix for each violation
 
-Do **not** update the review record with audit results — the review skill is read-only. The record stays `open` with unchecked boxes. Only adopt and upgrade mark items and lock records.
-
 ## Guidelines
 
-- This is a **read-only audit** by default. Don't modify files unless the user asks you to fix violations.
+- This is a **read-only audit** by default. Don't modify project source files unless the user asks you to fix violations. The review record itself is updated with audit results (checked/unchecked boxes).
 - The server runtime is pluggable (Hono or Express). Accept either as valid.
 - If a `tseng/project-structure.md` exists, check whether it is outdated and offer to update it.
 - Do not flag the absence of `tseng/` — it is a generated folder.
