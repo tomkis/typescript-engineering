@@ -44,7 +44,10 @@ Compare the tseng version from the locked review (`tseng_version` metadata) agai
 
 ## Phase 4 — Load Adoption State
 
-Read `tseng/adoption.md` if it exists. Previously discarded proposals for **unchanged rules** must not be re-proposed. However, if a rule has **changed** since it was discarded, it IS eligible for re-proposal — the user's original rejection may no longer apply.
+Read `tseng/adoption.md` if it exists. Each discarded entry includes a user-provided reason (e.g., "will adopt after auth migration", "not relevant for this project"). Use these reasons to make informed decisions:
+
+- **Unchanged rules** with a discard reason must not be re-proposed — the user's reasoning still applies.
+- **Changed rules** ARE eligible for re-proposal even if previously discarded — the rule evolved, so the original reason may no longer apply. When presenting these to the user, show both the old discard reason and what changed so they can make an informed decision.
 
 ## Phase 5 — Create New Review Record
 
@@ -116,6 +119,8 @@ Present proposals to the user as a numbered list. Each proposal should include:
 
 Ask the user which proposals to **accept** and which to **discard**. The user can respond with numbers, ranges, "all", or "none".
 
+For any discarded proposals, ask the user for a **brief reason** (e.g., "will cover this later", "using a different pattern intentionally", "not relevant for this project"). This context is recorded in `adoption.md` so future upgrade runs can understand *why* something was rejected.
+
 ## Phase 8 — Apply Accepted Changes
 
 For each accepted proposal, make the actual code changes. Follow the architecture docs as the source of truth.
@@ -149,6 +154,7 @@ Update `tseng/adoption.md` — merge new applied/discarded items with existing c
 
 ## Discarded
 - [rule description] — discarded on [date] (review #NNN)
+  > Reason: [user-provided context, e.g. "will adopt after auth migration"]
 - ...
 
 ## Remaining

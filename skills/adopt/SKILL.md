@@ -84,6 +84,8 @@ Present proposals to the user as a numbered list. Each proposal should include:
 
 Ask the user which proposals to **accept** and which to **discard**. The user can respond with numbers, ranges, "all", or "none".
 
+For any discarded proposals, ask the user for a **brief reason** (e.g., "will cover this later", "using a different pattern intentionally", "not relevant for this project"). This context is recorded in `adoption.md` so future runs (especially upgrade) can understand *why* something was rejected, not just *that* it was.
+
 ## Phase 6 — Apply Accepted Changes
 
 For each accepted proposal, make the actual code changes. Follow the architecture docs as the source of truth.
@@ -122,6 +124,7 @@ Write `tseng/adoption.md` with the current state:
 
 ## Discarded
 - [rule description] — discarded on [date] (review #NNN)
+  > Reason: [user-provided context, e.g. "will adopt after auth migration"]
 - ...
 
 ## Remaining
@@ -129,7 +132,7 @@ Write `tseng/adoption.md` with the current state:
 - ...
 ```
 
-Merge with any existing content — don't lose previously recorded items. Include the review number so each decision is traceable.
+Merge with any existing content — don't lose previously recorded items. Include the review number so each decision is traceable. Every discarded entry must include the user's reason on the line below — this context is critical for future upgrade runs to judge whether a re-proposal is warranted.
 
 ## Phase 9 — Update Project CLAUDE.md
 
