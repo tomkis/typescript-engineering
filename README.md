@@ -4,6 +4,12 @@ Coding agents produce little to no architecture in greenfield TypeScript project
 
 These Claude Code skills fill that gap. They provide an opinionated architecture — monorepo layout, tRPC for the API layer, and a DDD-inspired separation of domain, application, and validation layers — documented as shared architecture docs that multiple skills can execute against.
 
+## Installation
+
+```
+npx skills add github:tomkis/typescript-engineering
+```
+
 ## Usage
 
 Bootstrap a new project:
@@ -34,7 +40,7 @@ Upgrade a previously bootstrapped or adopted project when architecture evolves:
 
 The architecture rules live in `architecture/` as standalone documentation. Skills read the index first to understand the full picture, then drill into specific files as needed. Rules are defined once and enforced consistently whether you're scaffolding from scratch, auditing an existing codebase, or incrementally adopting the architecture.
 
-All four skills share the same architecture docs via `${CLAUDE_SKILL_DIR}/../../architecture/` — each skill resolves this relative to its own directory back to the repo root.
+Each skill directory contains symlinks to the shared `architecture/` docs and `VERSION` file, so every skill is self-contained when installed via `npx skills add`.
 
 ### Immutable Review Records
 

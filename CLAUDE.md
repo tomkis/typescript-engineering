@@ -5,7 +5,6 @@ Distributable Claude Code skills providing an opinionated TypeScript client-serv
 ## Repository Structure
 
 - `VERSION` - Current version; skills embed this in every review record
-- `scripts/version.sh` - Outputs the current version
 - `skills/bootstrap/` - Scaffolds new projects
 - `skills/review/` - Audits existing projects
 - `skills/adopt/` - Adopts architecture in existing projects
@@ -14,9 +13,9 @@ Distributable Claude Code skills providing an opinionated TypeScript client-serv
 
 ## Shared Static Files
 
-The `architecture/` directory contains the architecture rules that all skills read. Each SKILL.md uses a bash injection block (`` ```! ``) at the top to resolve the skill repository root via `${CLAUDE_SKILL_DIR}/../..` — this resolves relative to each skill's directory back to the repo root, allowing all four skills to share a single copy of the architecture docs.
+The `architecture/` directory contains the architecture rules that all skills read. Each skill directory contains symlinks (`architecture -> ../../architecture`, `VERSION -> ../../VERSION`) so that when skills are installed via `npx skills add`, the shared files travel with each skill.
 
-The same pattern applies to `scripts/version.sh` — skills resolve its path via the same injected root.
+Skills use a bash injection block (`` ```! ``) at the top of each SKILL.md to resolve these paths via `${CLAUDE_SKILL_DIR}`, making the architecture docs and version available at invocation time regardless of where the skill is installed.
 
 ## Architecture (Source of Truth)
 

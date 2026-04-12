@@ -10,10 +10,8 @@ description: >
 ---
 
 ```!
-SKILL_ROOT="$(cd "${CLAUDE_SKILL_DIR}/../.." && pwd)"
-echo "Skill root: ${SKILL_ROOT}"
-echo "Architecture docs: ${SKILL_ROOT}/architecture/"
-echo "Version script: ${SKILL_ROOT}/scripts/version.sh"
+echo "Architecture docs: ${CLAUDE_SKILL_DIR}/architecture/"
+echo "Version: $(cat "${CLAUDE_SKILL_DIR}/VERSION")"
 ```
 
 # TSEng Upgrade
@@ -26,14 +24,14 @@ The target project must have at least one **locked** review in `tseng/reviews/`.
 
 ## Phase 1 — Get Version
 
-Run the version script (shown above) to obtain the current tseng version.
+The current tseng version is shown above (injected from the VERSION file).
 
 ## Phase 2 — Regenerate Checklist
 
 Generate a fresh checklist from the current architecture docs:
 
-1. Read `architecture/index.md` from the skill root (shown above).
-2. Read every file linked from the index (also in the architecture docs directory shown above).
+1. Read `architecture/index.md` from the architecture docs directory (shown above).
+2. Read every file linked from the index (in the same architecture docs directory).
 3. Extract every concrete, verifiable rule into a checklist (same rules as review/adopt — no `tseng/` files, no inferred rules).
 
 Do NOT write this checklist to disk yet.

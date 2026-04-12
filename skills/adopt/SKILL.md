@@ -10,10 +10,8 @@ description: >
 ---
 
 ```!
-SKILL_ROOT="$(cd "${CLAUDE_SKILL_DIR}/../.." && pwd)"
-echo "Skill root: ${SKILL_ROOT}"
-echo "Architecture docs: ${SKILL_ROOT}/architecture/"
-echo "Version script: ${SKILL_ROOT}/scripts/version.sh"
+echo "Architecture docs: ${CLAUDE_SKILL_DIR}/architecture/"
+echo "Version: $(cat "${CLAUDE_SKILL_DIR}/VERSION")"
 ```
 
 # TSEng Adopt
@@ -22,14 +20,14 @@ Incrementally adopts the opinionated TypeScript architecture in an existing proj
 
 ## Phase 1 — Get Version
 
-Run the version script (shown above) to obtain the current tseng version. This version is embedded in the review record.
+The current tseng version is shown above (injected from the VERSION file). This version is embedded in the review record.
 
 ## Phase 2 — Generate Checklist & Create Review Record
 
 Run the full review process to understand the current state:
 
-1. Read `architecture/index.md` from the skill root (shown above).
-2. Read every file linked from the index (also in the architecture docs directory shown above).
+1. Read `architecture/index.md` from the architecture docs directory (shown above).
+2. Read every file linked from the index (in the same architecture docs directory).
 3. Extract every concrete, verifiable rule into a checklist. Do not include `tseng/` files (index.md, project-structure.md, adoption.md, reviews/) in the checklist — those are outputs of the adopt process, not rules to audit.
 
 Determine the next review number by reading `tseng/reviews/index.md` (or starting at `001`).

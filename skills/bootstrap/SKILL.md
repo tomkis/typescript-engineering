@@ -9,10 +9,8 @@ description: >
 ---
 
 ```!
-SKILL_ROOT="$(cd "${CLAUDE_SKILL_DIR}/../.." && pwd)"
-echo "Skill root: ${SKILL_ROOT}"
-echo "Architecture docs: ${SKILL_ROOT}/architecture/"
-echo "Version script: ${SKILL_ROOT}/scripts/version.sh"
+echo "Architecture docs: ${CLAUDE_SKILL_DIR}/architecture/"
+echo "Version: $(cat "${CLAUDE_SKILL_DIR}/VERSION")"
 ```
 
 # TSEng Bootstrap
@@ -22,9 +20,9 @@ Scaffolds a new greenfield TypeScript client-server monorepo.
 ## How It Works
 
 1. **Greenfield check** — List the target directory contents. If it contains existing source code, `package.json`, or a `packages/` directory, **stop immediately** and tell the user this skill is for greenfield projects only. Suggest using the `review` skill instead to audit their existing project. Only allow proceeding if the directory is empty or contains only dotfiles (`.git`, `.gitignore`, etc.), `README.md`, or `LICENSE`.
-2. **Get version** — Run the version script (shown above) to obtain the current tseng version. This version is embedded in the review record.
-3. Read `architecture/index.md` from the skill root (shown above) — it describes the overall architecture and points to deeper dives on each topic.
-4. Read the specific architecture files (in the architecture docs directory shown above) you need for the current step of bootstrapping. You will likely need all of them, but load them as you go rather than all at once.
+2. **Get version** — The current tseng version is shown above (injected from the VERSION file). Embed this version in the review record.
+3. Read `architecture/index.md` from the architecture docs directory (shown above) — it describes the overall architecture and points to deeper dives on each topic.
+4. Read the specific architecture files (in the same architecture docs directory) you need for the current step of bootstrapping. You will likely need all of them, but load them as you go rather than all at once.
 5. Ask the user for a project name (or infer from the directory name), server runtime (Hono or Express, default: Hono), and package manager preference (default: pnpm).
 6. Scaffold the full monorepo with working sample code in every layer, conforming to the architecture.
 7. Write `tseng/project-structure.md` with the project metadata format described in the architecture docs.
