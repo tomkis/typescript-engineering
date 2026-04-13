@@ -35,6 +35,9 @@ Incrementally adopt the architecture in an existing project. Creates a review re
 ### `upgrade`
 Upgrade a previously bootstrapped or adopted project when the architecture rules evolve. Reads the last **locked** review from `tseng/reviews/`, diffs against current architecture, creates a new review record for the delta, and runs the adopt-style proposal workflow.
 
+### `plan`
+Plan a feature or change with full architecture knowledge and project adoption context. Conducts a discovery interview to understand domain concerns, bounded contexts, and layer responsibilities, then produces a high-level architectural specification. Maintains ubiquitous language in `tseng/vocabulary.md`. Can store the approved plan as a GitHub issue.
+
 ## Review Records
 
 Reviews are append-only immutable records stored in `tseng/reviews/` in target projects. Each record is a numbered markdown file (`001.md`, `002.md`, ...) containing a versioned checklist. Records are `open` while being worked on and `locked` once finalized. Locked records are never modified — new runs always create a new record. The `tseng/reviews/index.md` file tracks all reviews.
