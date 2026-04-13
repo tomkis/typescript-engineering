@@ -35,8 +35,8 @@ Incrementally adopt the architecture in an existing project. Creates a review re
 ### `upgrade`
 Upgrade a previously bootstrapped or adopted project when the architecture rules evolve. Reads the last **locked** review from `tseng/reviews/`, diffs against current architecture, creates a new review record for the delta, and runs the adopt-style proposal workflow.
 
-### `plan`
-Plan a feature or change with full architecture knowledge and project adoption context. Conducts a discovery interview to understand domain concerns, bounded contexts, and layer responsibilities, then produces a high-level architectural specification. Maintains ubiquitous language in `tseng/vocabulary.md`. Can store the approved plan as a GitHub issue.
+### `spec`
+Spec out a feature or change with full architecture knowledge and project adoption context. Conducts a discovery interview to understand domain concerns, bounded contexts, and layer responsibilities, then produces a high-level architectural specification. Maintains ubiquitous language in `tseng/vocabulary.md`. Can store the approved spec as a GitHub issue.
 
 ## Review Records
 
