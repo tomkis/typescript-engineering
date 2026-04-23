@@ -11,6 +11,7 @@ The opinionated stack for TypeScript client-server projects.
 | Language | TypeScript (strict mode) | Type safety across the entire stack |
 | Package management | pnpm (default) | Fast, disk-efficient package manager with native workspace support |
 | Events | [RxJS](https://rxjs.dev/) (recommended) | Reactive event bus for domain events and sagas |
+| Pattern matching | [ts-pattern](https://github.com/gvergnaud/ts-pattern) | Type-driven branching on discriminated unions, Result types, event types |
 
 ## Why These Choices
 
@@ -33,6 +34,16 @@ The base `tsconfig.json` enables strict mode and additional checks:
 - `strict: true` (enables `strictNullChecks`, `noImplicitAny`, etc.)
 - `noEmit: true` (type-checking only; bundler handles emit)
 - Path aliases via `paths` for clean imports between layers
+
+### ts-pattern for Branching
+
+All branching on discriminated unions, `Result` types, domain event types, and other type-driven decisions uses [ts-pattern](https://github.com/gvergnaud/ts-pattern).
+
+- **Never use `switch` statements or `if`/`else if` chains for type-driven branching.** Use `match(...).with(...).exhaustive()` instead.
+- `.exhaustive()` guarantees at compile time that every case is handled — adding a new variant to a union forces the compiler to flag every unhandled match site.
+- Pairs naturally with `Result<T, E>`: `match(result).with({ ok: true }, ...).with({ ok: false }, ...).exhaustive()`.
+- Pairs naturally with domain events: sagas and subscribers match on the event's discriminant.
+- Plain `if` is still fine for simple boolean guards (null checks, feature flags, early returns). The rule targets type-driven dispatch, not all conditionals.
 
 ### RxJS for Domain Events
 

@@ -92,3 +92,4 @@ Violating this rule (e.g., a domain entity importing from a service, or a servic
 - Domain errors are represented as `Result<T, E>` values — never thrown exceptions.
 - Services unwrap or propagate `Result` types.
 - Contract routers translate domain errors into appropriate tRPC error codes.
+- Branching on `Result` (or any discriminated union) uses `ts-pattern`'s `match(...).exhaustive()` — never `switch` or `if`/`else if` chains. See [stack.md](stack.md#ts-pattern-for-branching).
