@@ -5,10 +5,10 @@ Distributable Claude Code skills providing an opinionated TypeScript client-serv
 ## Repository Structure
 
 - `VERSION` - Current version; skills embed this in every review record
-- `skills/bootstrap/` - Scaffolds new projects
-- `skills/review/` - Audits existing projects
-- `skills/adopt/` - Adopts architecture in existing projects
-- `skills/upgrade/` - Upgrades adopted/bootstrapped projects when architecture evolves
+- `skills/tseng-bootstrap/` - Scaffolds new projects
+- `skills/tseng-review/` - Audits existing projects
+- `skills/tseng-adopt/` - Adopts architecture in existing projects
+- `skills/tseng-upgrade/` - Upgrades adopted/bootstrapped projects when architecture evolves
 - `architecture/` - Architecture documentation (the rules, source of truth)
 
 ## Shared Static Files
