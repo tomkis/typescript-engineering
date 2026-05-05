@@ -1,5 +1,5 @@
 ---
-name: review
+name: tseng:review
 description: >
   Review an existing TypeScript project against the opinionated architecture rules.
   Use when the user asks to review, audit, check, or validate their project's architecture.

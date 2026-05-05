@@ -1,5 +1,5 @@
 ---
-name: build-it
+name: tseng:build-it
 description: >
   Implement an architectural specification as working code. Takes the output of the spec skill
   (from a GitHub issue, conversation context, or pasted text) and produces working TypeScript code

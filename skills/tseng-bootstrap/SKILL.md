@@ -1,5 +1,5 @@
 ---
-name: bootstrap
+name: tseng:bootstrap
 description: >
   Bootstrap a new greenfield TypeScript client-server project with an opinionated
   monorepo architecture. Use when the user asks to bootstrap, scaffold, or initialize

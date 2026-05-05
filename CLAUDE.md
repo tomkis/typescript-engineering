@@ -5,10 +5,10 @@ Distributable Claude Code skills providing an opinionated TypeScript client-serv
 ## Repository Structure
 
 - `VERSION` - Current version; skills embed this in every review record
-- `skills/bootstrap/` - Scaffolds new projects
-- `skills/review/` - Audits existing projects
-- `skills/adopt/` - Adopts architecture in existing projects
-- `skills/upgrade/` - Upgrades adopted/bootstrapped projects when architecture evolves
+- `skills/tseng-bootstrap/` - Scaffolds new projects
+- `skills/tseng-review/` - Audits existing projects
+- `skills/tseng-adopt/` - Adopts architecture in existing projects
+- `skills/tseng-upgrade/` - Upgrades adopted/bootstrapped projects when architecture evolves
 - `architecture/` - Architecture documentation (the rules, source of truth)
 
 ## Shared Static Files
@@ -23,22 +23,22 @@ The architecture rules live in `architecture/`. The entry point is `architecture
 
 ## Skills
 
-### `bootstrap`
+### `tseng:bootstrap`
 Bootstrap a new greenfield project following the architecture. Creates the full monorepo scaffold with sample code in each layer.
 
-### `review`
+### `tseng:review`
 Audit an existing project against the architecture. Creates an immutable review record in `tseng/reviews/` and produces a structured report. The record stays open (read-only audit).
 
-### `adopt`
+### `tseng:adopt`
 Incrementally adopt the architecture in an existing project. Creates a review record, proposes changes, tracks accepted/discarded decisions in `tseng/adoption.md`, and **locks** the review once the user finalizes. Locked reviews are never modified.
 
-### `upgrade`
+### `tseng:upgrade`
 Upgrade a previously bootstrapped or adopted project when the architecture rules evolve. Reads the last **locked** review from `tseng/reviews/`, diffs against current architecture, creates a new review record for the delta, and runs the adopt-style proposal workflow.
 
-### `spec`
+### `tseng:spec`
 Spec out a feature or change with full architecture knowledge and project adoption context. Conducts a discovery interview to understand domain concerns, bounded contexts, and layer responsibilities, then produces a high-level architectural specification. Maintains ubiquitous language in `tseng/vocabulary.md`. Can store the approved spec as a GitHub issue.
 
-### `build-it`
+### `tseng:build-it`
 Implement an architectural specification as working code. Takes the output of the spec skill (from a GitHub issue, conversation context, or pasted text) and produces concrete TypeScript modules, services, domain objects, events, and routers. Discovers project conventions, creates an implementation plan for approval, then implements module by module in dependency order with verification.
 
 ## Review Records

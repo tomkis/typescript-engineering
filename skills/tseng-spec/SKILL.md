@@ -1,5 +1,5 @@
 ---
-name: spec
+name: tseng:spec
 description: >
   Spec out a feature or change with full knowledge of the opinionated TypeScript architecture and the project's adoption state.
   Conducts a thorough discovery interview to understand domain concerns, bounded contexts, and application services,

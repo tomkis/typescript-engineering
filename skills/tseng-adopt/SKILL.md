@@ -1,5 +1,5 @@
 ---
-name: adopt
+name: tseng:adopt
 description: >
   Adopt the opinionated TypeScript architecture in an existing project.
   Runs a review first, then proposes incremental changes the user can accept or discard.
