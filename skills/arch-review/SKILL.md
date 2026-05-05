@@ -1,5 +1,5 @@
 ---
-name: arch-review
+name: tseng:arch-review
 description: >
   Review code changes (PRs, diffs, branches) against the opinionated TypeScript architecture rules.
   Checks whether changes align with the architecture — layer dependencies, module boundaries, event patterns,

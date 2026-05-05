@@ -15,25 +15,25 @@ npx skills add github:tomkis/typescript-engineering
 Bootstrap a new project:
 
 ```
-/bootstrap
+/tseng:bootstrap
 ```
 
 Review an existing project against the architecture rules:
 
 ```
-/review
+/tseng:review
 ```
 
 Adopt the architecture in an existing project:
 
 ```
-/adopt
+/tseng:adopt
 ```
 
 Upgrade a previously bootstrapped or adopted project when architecture evolves:
 
 ```
-/upgrade
+/tseng:upgrade
 ```
 
 ## How It Works

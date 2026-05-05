@@ -1,5 +1,5 @@
 ---
-name: upgrade
+name: tseng:upgrade
 description: >
   Upgrade a previously bootstrapped or adopted project when the architecture evolves.
   Diffs the current architecture rules against the project's last locked review,
